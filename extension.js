@@ -24,8 +24,7 @@ function activate(context) {
 				let filename = vscode.Uri.file(folderURI.fsPath + "/" + content);
 				vscode.workspace.openTextDocument(filename).then((c) => {
 					let fileContent = c.getText();
-					let wv = vscode.window.createWebviewPanel("title", content, vscode.ViewColumn.Two);
-					// wv.webview.html = `<!DOCTYPE html><html><head><link rel='stylesheet' href='vscode-resource:/Users/swarut/Projects/swarut/rusttest/styles.css'></head><body>${fileContent}</body></html>`;
+					let wv = vscode.window.createWebviewPanel("title", content + 'prev', vscode.ViewColumn.Two, { enableScripts: true });
 					wv.webview.html = `<!DOCTYPE html><html><head></head><body>${fileContent}</body></html>`;
 				}, (reason) => {
 					console.log(reason);
@@ -36,6 +35,76 @@ function activate(context) {
 			console.log(reason);
 		});
 	});
+
+	const nextSlide = vscode.commands.registerCommand('vscode-presentation.nextSlide', () => {
+		console.log("open 1");
+		vscode.commands.executeCommand("workbench.action.focusFirstEditorGroup").then(
+			() => {
+				console.log("next 1");
+				vscode.commands.executeCommand("workbench.action.nextEditor").then(
+					() => {
+						console.log("open 2");
+						vscode.commands.executeCommand("workbench.action.focusSecondEditorGroup").then(
+							() => {
+								console.log("next 2");
+								vscode.commands.executeCommand("workbench.action.nextEditor").then(
+									() => {
+										// console.log("open 3");
+										// vscode.commands.executeCommand("workbench.action.focusSecondEditorGroup").then(
+										// 	() => {
+										// 		console.log("next 3");
+										// 		vscode.commands.executeCommand("workbench.action.nextEditor");
+										// 	},
+										// 	() => { }
+										// );
+									},
+									() => { }
+								);
+							},
+							() => { }
+						);
+					},
+					() => { }
+				);
+			},
+			() => { }
+		);
+	});
+
+	const previousSlide = vscode.commands.registerCommand('vscode-presentation.previousSlide', () => {
+		console.log("open 1");
+		vscode.commands.executeCommand("workbench.action.focusFirstEditorGroup").then(
+			() => {
+				console.log("prev 1");
+				vscode.commands.executeCommand("workbench.action.previousEditor").then(
+					() => {
+						console.log("open 2");
+						vscode.commands.executeCommand("workbench.action.focusSecondEditorGroup").then(
+							() => {
+								console.log("prev 2");
+								vscode.commands.executeCommand("workbench.action.previousEditor").then(
+									() => {
+										// console.log("open 3");
+										// vscode.commands.executeCommand("workbench.action.focusSecondEditorGroup").then(
+										// 	() => {
+										// 		console.log("prev 3");
+										// 		vscode.commands.executeCommand("workbench.action.previousEditor");
+										// 	},
+										// 	() => { }
+										// );
+									},
+									() => { }
+								);
+							},
+							() => { }
+						);
+					},
+					() => { }
+				);
+			},
+			() => { }
+		);
+	})
 
 
 	let disposable = vscode.commands.registerCommand('vscode-presentation.helloWorld', function () {
@@ -56,6 +125,8 @@ function activate(context) {
 
 	context.subscriptions.push(disposable);
 	context.subscriptions.push(togglePresentation);
+	context.subscriptions.push(nextSlide);
+	context.subscriptions.push(previousSlide);
 }
 exports.activate = activate;
 

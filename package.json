@@ -23,6 +23,27 @@
 			{
 				"command": "vscode-presentation.toggle",
 				"title": "Toggle presentation"
+			},
+			{
+				"command": "vscode-presentation.nextSlide",
+				"title": "Next presentation"
+			}
+		],
+		"keybindings": [
+			{
+				"command": "vscode-presentation.toggle",
+				"key": "ctrl+alt+p",
+				"mac": "cmd+alt+p"
+			},
+			{
+				"command": "vscode-presentation.nextSlide",
+				"key": "ctrl+alt+shift+right",
+				"mac": "cmd+alt+shift+right"
+			},
+			{
+				"command": "vscode-presentation.previousSlide",
+				"key": "ctrl+alt+shift+left",
+				"mac": "cmd+alt+shift+left"
 			}
 		]
 	},
